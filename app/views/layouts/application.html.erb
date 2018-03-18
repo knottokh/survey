@@ -7,8 +7,20 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+      <div class="container">
+        <% if current_user %>
+          <ul class="nav">
+            <span class="nav-link">Logged in as <%= current_user.school %>. </span>
+            <li class="nav-item">
+              <%= link_to "Log Out", logout_path, method: "delete" ,class: "btn btn-danger"%> 
+            </li>
+          </ul>
+        <% end %>  
+      </div>
+  </header>
+  <div class="container">
+    <%= yield %>
+  </div>
 </body>
 </html>
