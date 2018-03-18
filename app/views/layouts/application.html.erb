@@ -7,8 +7,34 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase text-white" id="mainNav">
+      <div class="container">
+        <span class="navbar-brand js-scroll-trigger">Survey</span>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+                <li class="nav-item mx-0 mx-lg-1">
+                  <span class="nav-link  rounded js-scroll-trigger">Welcome : <%= current_user.school %></span>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                  <%= link_to 'Logout', destroy_user_session_path, method: :delete ,class: "btn btn-danger rounded js-scroll-trigger" %>   
+                </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>    
+ <div class="container">    
+   
+        <p class="notice"><%= notice %></p>
+        <p class="alert" role="alert"><%= alert %></p>
+        <%= yield %>
 
-<%= yield %>
+</div>
 
 </body>
 </html>
