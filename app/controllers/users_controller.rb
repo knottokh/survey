@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   def index
-       @school = [['school1', 'school1'],['school2', 'school2'],['school3', 'school3'],['school4', 'school4'],['school5', 'school5']]
+      # @school = [['school1', 'school1'],['school2', 'school2'],['school3', 'school3'],['school4', 'school4'],['school5', 'school5']]
+       
+       @school = ['school1','school2','school3','school4']
+       
   end
   
   def create

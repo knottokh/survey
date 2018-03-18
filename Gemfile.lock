@@ -48,6 +48,7 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
+    bootstrap-select-rails (1.12.4)
     builder (3.2.3)
     byebug (10.0.0)
     coffee-rails (4.2.2)
@@ -60,7 +61,7 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     debug_inspector (0.0.3)
-    devise (4.4.2)
+    devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 6.0)
@@ -180,6 +181,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap (~> 4.0.0)
+  bootstrap-select-rails (~> 1.12, >= 1.12.4)
   byebug
   coffee-rails (~> 4.2)
   devise

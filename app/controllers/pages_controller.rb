@@ -1,5 +1,8 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!
   def index
+       @newusertext = "ลงทะเบียนผู้ใช้ใหม่"
+       @tosurveytext = "กรอกข้อมูลต่อ"
+  end
+  def show
   end
 end

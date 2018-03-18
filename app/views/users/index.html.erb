@@ -1,40 +1,41 @@
-<br/>
-<% if flash[:login_errors] %>
-    <% flash[:login_errors].each do |error| %>
-      <div class="alert alert-danger" role="alert"><%=error%></div>
-    <%end%>
-<%end%>
-<div class="row justify-content-md-center">
-  <div class="col-sm-6 col-sm-6">
-    <div class="card border-primary">
-        <div class="card-header bg-info text-white text-center">
-           Sign Up
-        </div>
-          <%= form_for :user , as: :post, url: users_path,:html => {:class => 'card-body'} do |f| %>
-                <div class="form-group">
-                    <label for="user_username" class="col-form-label">Username</label>
-                    <%= f.text_field :username,class: "form-control" ,placeholder: "Username"%>
-                </div>
-                <div class="form-group">
-                    <label for="user_password" class="col-form-label">Password</label>
-                    <%= f.password_field :password,class: "form-control" ,placeholder: "Password" %>
-                </div>
-                <div class="form-group">
-                    <label for="user_password_confirmation" class="col-form-label">Password</label>
-                    <%= f.password_field :password_confirmation,class: "form-control" ,placeholder: "Password Confirmation" %>
-                </div>
-                <div class="form-group">
-                    <label for="user_school" class="col-form-label">School</label>
-                    <%= f.select(:school,@school , {:include_blank => true},{ :class => 'form-control' })%>
-                </div>
-                <div class="form-group text-right">
-                  <%= f.submit 'Sign Up' ,class: "btn btn-success" %>
-                </div>
-                <div class="form-group">                  
-                  <%= link_to "Cancel", dashboard_path, method: "get"%> 
-                </div>
-          <% end %>
-         
+<div class="jumbotron vertical-center ">
+  <% if flash[:login_errors] %>
+      <% flash[:login_errors].each do |error| %>
+        <div class="alert alert-danger" role="alert"><%=error%></div>
+      <%end%>
+  <%end%>
+  <div class="row justify-content-md-center">
+    <div class="col-sm-6 col-sm-6">
+      <div class="card border-primary">
+          <div class="card-header bg-info text-white text-center">
+             Sign Up
+          </div>
+            <%= form_for :user , as: :post, url: users_path,:html => {:class => 'card-body'} do |f| %>
+                  <div class="form-group">
+                      <label for="user_username" class="col-form-label">Username</label>
+                      <%= f.text_field :username,class: "form-control" ,placeholder: "Username"%>
+                  </div>
+                  <div class="form-group">
+                      <label for="user_password" class="col-form-label">Password</label>
+                      <%= f.password_field :password,class: "form-control" ,placeholder: "Password" %>
+                  </div>
+                  <div class="form-group">
+                      <label for="user_password_confirmation" class="col-form-label">Password</label>
+                      <%= f.password_field :password_confirmation,class: "form-control" ,placeholder: "Password Confirmation" %>
+                  </div>
+                  <div class="form-group">
+                      <label for="user_school" class="col-form-label">School</label>
+                      <%= f.select(:school,@school , {:include_blank => true},{ :class => 'form-control selectpicker' })%>
+                  </div>
+                  <div class="form-group text-right">
+                    <%= f.submit 'Sign Up' ,class: "btn btn-success" %>
+                  </div>
+                  <div class="form-group">                  
+                    <%= link_to "Cancel", root_path, method: "get"%> 
+                  </div>
+            <% end %>
+           
+      </div>
     </div>
   </div>
 </div>

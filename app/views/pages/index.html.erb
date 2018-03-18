@@ -1,2 +1,19 @@
-<h1>Pages#index</h1>
-<p>Find me in app/views/pages/index.html.erb</p>
+<div id="mainpage">
+    <div class="jumbotron vertical-center ">
+        <div class="row h-100 justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="https://static.wixstatic.com/media/054e48_49da7fbb4acb418696cb7800e1fe738c~mv2_d_1960_2960_s_2.jpg/v1/fill/w_68,h_100,al_c,q_80,usm_0.66_1.00_0.01/054e48_49da7fbb4acb418696cb7800e1fe738c~mv2_d_1960_2960_s_2.webp"/>
+                    </div>
+                    <div class="card-body">
+                        <%= link_to @newusertext , sign_up_path, method: "get" ,class: "btn btn-primary  btn-lg form-control box-shadow--8dp "%> 
+                    </div>
+                    <div class="card-body">
+                         <%= link_to @tosurveytext, sign_in_path, method: "get" ,class: "btn btn-success  btn-lg  form-control box-shadow--8dp "%> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

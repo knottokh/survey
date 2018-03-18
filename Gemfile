@@ -38,6 +38,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #bootstrap
 gem 'popper_js', '~> 1.12.9'
 gem 'bootstrap', '~> 4.0.0'
+#gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootstrap-select-rails', '~> 1.12', '>= 1.12.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require popper
 //= require bootstrap-sprockets
+// require bootstrap
+//= require bootstrap-select
 //= require_tree .
