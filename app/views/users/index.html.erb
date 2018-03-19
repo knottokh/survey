@@ -25,7 +25,21 @@
                   </div>
                   <div class="form-group">
                       <label for="user_school" class="col-form-label">School</label>
-                      <%= f.select(:school,@school , {:include_blank => true},{ :class => 'form-control selectpicker' })%>
+                      <%= f.select(:school,@school.map { |object| [object.name, object.code, {'data-description'=>object.description}] }, {:include_blank => true},
+                          { :class => 'form-control selectpicker',:onchange => "displaySchoolValue(this.value,this)" })%>
+                      <script type="text/javascript">
+                          function displaySchoolValue(val,obj)
+                          {
+                              if(val.length === 0 ) console.log("clear data");
+                              else{
+                                var dobj = $(obj).children('option[value='+val+']');
+                                if(dobj.length > 0){
+                                   console.log(dobj.data());
+                                }
+                              }
+                              //console.log(val)
+                          }
+                        </script>    
                   </div>
                   <div class="form-group text-right">
                     <%= f.submit 'Sign Up' ,class: "btn btn-success" %>

@@ -12,4 +12,3 @@ $(document).on "turbolinks:load", ->
        $("#user_school").selectpicker({
              liveSearch:true
         })
-       
