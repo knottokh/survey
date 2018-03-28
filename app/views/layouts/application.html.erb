@@ -9,7 +9,7 @@
 <body>
   <% if current_user %>
           <ul class="nav">
-            <span class="nav-link">Logged in as <%= current_user.school %>. </span>
+            <span class="nav-link">Logged in as <%= current_user.school.name %>. </span>
             <li class="nav-item">
               <%= link_to "Log Out", logout_path, method: "delete" ,class: "btn btn-danger"%> 
             </li>

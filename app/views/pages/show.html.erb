@@ -1,2 +1,12 @@
 <h1>Pages#show</h1>
 <p>Find me in app/views/pages/show.html.erb</p>
+  <%= form_for :login , as: :post, url: sessions_path,:html => {:class => 'card-body'} do |f| %>
+    <% @NEW_USER_HASH.each do |column_name,field_info|  %>
+        <div class="field">
+            <% case column_name 
+                 when "prefix" %> <%=column_name%>
+              <% when "first" %>  <%= f.text_field :login[column_name],class: "form-control" ,placeholder: column_name%>
+              <% end %>
+        </div>
+    <% end %>
+<% end %>

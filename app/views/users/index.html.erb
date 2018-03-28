@@ -25,7 +25,7 @@
                   </div>
                   <div class="form-group">
                       <label for="user_school" class="col-form-label">School</label>
-                      <%= f.select(:school,@school.map { |object| [object.name, object.code, {'data-description'=>object.description}] }, {:include_blank => true},
+                      <%= f.select(:school_id,@school.map { |object| [object.name, object.id, {'data-description'=>object.description}] }, {:include_blank => true},
                           { :class => 'form-control selectpicker',:onchange => "displaySchoolValue(this.value,this)" })%>
                       <script type="text/javascript">
                           function displaySchoolValue(val,obj)
