@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get '/form1' => 'pages#form1'
   post '/formsave' =>'pages#create'
   get '/admin' => 'admin#index'
-  #post '/admin' => 'admin#show'
+  post '/admin' => 'admin#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
