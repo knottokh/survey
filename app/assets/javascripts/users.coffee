@@ -9,6 +9,6 @@
 #   console.log("OK")
 #)
 $(document).on "turbolinks:load", ->
-       $("#user_school").selectpicker({
+       $("#user_school_id").selectpicker({
              liveSearch:true
         })

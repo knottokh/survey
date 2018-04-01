@@ -1,0 +1,62 @@
+<h1>Admin#index</h1>
+<p>Find me in app/views/admin/index.html.erb</p>
+<% 
+   filterchoice = Array.new
+    filterchoice.push({title:"All",filter:""})
+    filterchoice.push({title:"A",filter:"percent_max = 100"})
+    filterchoice.push({title:"B",filter:"percent_max < 100 and percent_max >= 80"})
+    filterchoice.push({title:"C",filter:"percent_max < 80 and percent_max >=50"})
+    filterchoice.push({title:"D",filter:"percent_max < 50"})
+%>
+ <% if flash[:question_errors] %>
+        <% flash[:question_errors].each do |error| %>
+          <div class="alert alert-danger" role="alert"><%=error%></div>
+        <%end%>
+<%end%>
+ <%= form_for :pfilter , as: :get, url: admin_path,:html => {:class => ''} do |f| %>
+
+        <%= f.select(:procress,filterchoice.map{ |c| [c[:title], c[:filter]] }, {:selected => flash[:procress]},
+                                                    { :class => 'form-control',:onChange=>"javascript: this.form.apply_button_name.click();" })%>
+        <%= f.submit "Apply", :name => "apply_button_name" , :remote => true %>
+ <% end %>
+<table class="table">
+    <thead>
+        <tr>
+            <th>A1</th>
+            <th>A2</th>
+            <th>A3</th>
+            <th>Overall</th>
+            <th>Form1</th>
+            <th>From2</th>
+            <th>From3</th>
+            <th>From4</th>
+            <th>Users</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @schools.each do |school|  %>
+            <% classname = "row-warning"
+                if school.percent_max == 100
+                    classname= "row-success"
+                elsif school.percent_max < 100 && school.percent_max >= 80
+                     classname= "row-nearly"
+                elsif school.percent_max < 80 && school.percent_max >= 50
+                     classname= "row-center"
+                end
+            %>
+            <tr class="<%= classname %>">
+                <td><%= school.code %></td>
+                <td><%= school.name %></td>
+                <td><%= school.description %></td>
+                <td><%= school.percent_max %></td>
+                <td><%= school.percent_1 %></td>
+                <td><%= school.percent_2 %></td>
+                <td><%= school.percent_3 %></td>
+                <td><%= school.percent_4 %></td>
+                <td><%= school.user_school %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<%= will_paginate @schools %>
+ <%#<%= paginate @schools %>

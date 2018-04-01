@@ -1,12 +1,13 @@
-<h1>Pages#show</h1>
-<p>Find me in app/views/pages/show.html.erb</p>
-  <%= form_for :login , as: :post, url: sessions_path,:html => {:class => 'card-body'} do |f| %>
-    <% @NEW_USER_HASH.each do |column_name,field_info|  %>
-        <div class="field">
-            <% case column_name 
-                 when "prefix" %> <%=column_name%>
-              <% when "first" %>  <%= f.text_field :login[column_name],class: "form-control" ,placeholder: column_name%>
-              <% end %>
+<div class="row">
+    <div class="col-sm-3">
+        Overall : <%= @percentall %>%
+    </div>
+    <div class="col-sm-9">
+        <div class="row">
+            <div class="col-sm-6">Form2 : <%= @percentform1 %>% <%= link_to @text1, form1_path, method: "get" ,class: ""%></div>
+            <div class="col-sm-6">Form2 : <%= @percentform2 %>% <%= @text2 %></div>
+            <div class="col-sm-6">Form3 : <%= @percentform3 %>% <%= @text3 %></div>
+            <div class="col-sm-6">Form4 : <%= @percentform4 %>% <%= @text4 %></div>
         </div>
-    <% end %>
-<% end %>
+    </div>
+</div>

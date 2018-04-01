@@ -1,12 +1,21 @@
 Rails.application.routes.draw do
   
   
+  #get 'admin/index'
+
+  #get 'form1/index'
+
+  #get 'form1/index'
+
   get 'pages/show'
+  
+  get 'pages/index'
+  #get 'pages/indexform1'
 
   get 'sessions/index'
 
   get 'users/index'
-
+  post 'pages/create'
   #get 'pages/index'
 
   #get '/' => 'users#index'
@@ -16,7 +25,11 @@ Rails.application.routes.draw do
   delete  '/logout' => 'sessions#destroy'
   post '/users' => 'users#create'
   get '/dashboard' => 'pages#show'
-  
+  #get '/form1' => 'form1#index'
+  get '/form1' => 'pages#form1'
+  post '/formsave' =>'pages#create'
+  get '/admin' => 'admin#index'
+  #post '/admin' => 'admin#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -31,7 +44,9 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :schools
+  resources :schools do
+    post 'filter', on: :collection
+  end
   resources :questions
   resources :users
   resources :answers

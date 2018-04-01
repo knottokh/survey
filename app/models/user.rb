@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :school_id, presence: true
   
   belongs_to :school
+  belongs_to :role
   has_many :loghistories
 end
 

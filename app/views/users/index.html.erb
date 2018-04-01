@@ -11,6 +11,7 @@
              Sign Up
           </div>
             <%= form_for :user , as: :post, url: users_path,:html => {:class => 'card-body'} do |f| %>
+                  <%= f.hidden_field :role_id , :value => @roleid %>
                   <div class="form-group">
                       <label for="user_username" class="col-form-label">Username</label>
                       <%= f.text_field :username,class: "form-control" ,placeholder: "Username"%>
@@ -24,7 +25,7 @@
                       <%= f.password_field :password_confirmation,class: "form-control" ,placeholder: "Password Confirmation" %>
                   </div>
                   <div class="form-group">
-                      <label for="user_school" class="col-form-label">School</label>
+                      <label for="school_id" class="col-form-label">School</label>
                       <%= f.select(:school_id,@school.map { |object| [object.name, object.id, {'data-description'=>object.description}] }, {:include_blank => true},
                           { :class => 'form-control selectpicker',:onchange => "displaySchoolValue(this.value,this)" })%>
                       <script type="text/javascript">
