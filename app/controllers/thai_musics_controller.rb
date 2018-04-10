@@ -1,0 +1,2 @@
+class ThaiMusicsController < ApplicationController
+end

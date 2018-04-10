@@ -1,0 +1,7 @@
+<div class='nested-fields'>
+<%= link_to_remove_association "remove", f, class: 'btn btn-xs btn-danger' %>
+<%= f.index %>
+<%= f.input :name, lable: false %>
+<%= f.input :completed, lable: false %>
+<%= f.input :due, lable: false, as: :string %>
+</div>

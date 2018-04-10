@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  resources :todo_lists
   #get 'admin/index'
 
   #get 'form1/index'
@@ -26,8 +27,12 @@ Rails.application.routes.draw do
   post '/users' => 'users#create'
   get '/dashboard' => 'pages#show'
   #get '/form1' => 'form1#index'
+  #get '/form1' => 'teachers#new'
+  #post '/formsave' =>'teachers#create'
+  
   get '/form1' => 'pages#form1'
-  post '/formsave' =>'pages#create'
+  post '/formsave' =>'teachers#create'
+  
   get '/admin' => 'admin#index'
   post '/admin' => 'admin#show'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -23,9 +23,10 @@ class AdminController < ApplicationController
      #                            ").group("id").order("id")
 
        @schools = School.schoolpercent
-                                  .where(!(params[:pfilter]).nil? ? params[:pfilter][:procress] : "")  
+                                  .having(!(params[:pfilter]).nil? ? params[:pfilter][:procress] : "")     
                                   .order("percent_max desc")
                                   .paginate(:page => params[:page], :per_page => 2)
+                                   #.where(!(params[:pfilter]).nil? ? params[:pfilter][:procress] : "")  
                                   #.where("percent_max >= 0")
                                   
                                   #.page(params[:page])#.per(2)
@@ -33,7 +34,7 @@ class AdminController < ApplicationController
   end
   def show
       @master_case = 2;
-      @schools = School.schoolpercent.where(params[:pfilter][:procress]).order("percent_max desc")
+      @schools = School.schoolpercent.having(params[:pfilter][:procress]).order("percent_max desc")
                 .paginate(:page => params[:page], :per_page => 2)
      # @schools = schools.where(params[:pfilter][:procress])
       #          .paginate(:page => params[:page], :per_page => 2)

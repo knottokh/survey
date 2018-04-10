@@ -39,3 +39,18 @@
 #Loghistory.create(behavior:'1',answer:'IIII',user_id: 3,question_id:3);
 
 #log = Loghistory.joins(:user).where(users: {'school_id': 1})Post.joins("LEFT OUTER JOIN answers ON answers.question_id = questions.id")
+
+
+#Musicins.create(title:"ครูดนตรี",formtype:1)
+#Musicins.create(title:"เครื่องดีด และ เครื่องสี",formtype:2)
+#Musicins.create(title:"เครื่องตี",formtype:2)
+#Musicins.create(title:"เครื่องเป่า",formtype:2)
+#Musicins.create(title:"เครื่องสาย",formtype:3)
+#Musicins.create(title:"เครื่องตี",formtype:3)
+#Musicins.create(title:"เครื่องประเภทลิ่มนิ้ว",formtype:3)
+#Musicins.create(title:"เครื่องเป่าลมไม้",formtype:3)
+#Musicins.create(title:"เครื่องเป่าทองเหลือง",formtype:3)
+#Musicins.create(title:"ภาคเหนือ",formtype:4)
+#Musicins.create(title:"ภาคอีสาน (เหนือ)",formtype:4)
+#Musicins.create(title:"ภาคอีสาน (ใต้)",formtype:4)
+#Musicins.create(title:"ภาคใต้",formtype:4)

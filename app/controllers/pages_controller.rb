@@ -74,26 +74,26 @@ class PagesController < ApplicationController
   end
   def show
      @master_case = 1;
-      user = User.find_by(id: session[:user_id])
-     allform1 = Question.where(formtype:1).count;
-     allform2 = Question.where(formtype:2).count;
-     allform3 = Question.where(formtype:3).count;
-     allform4 = Question.where(formtype:4).count;
-     allcount = allform1+allform2+allform3+allform4;
-     ansform1 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:1}).count
-     ansform2 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:2}).count
-     ansform3 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:3}).count
-     ansform4 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:4}).count
-     ansall = ansform1+ansform2+ansform3+ansform4;
-     @percentall = (ansall).percent_of(allcount)  
-     @percentform1 = ansform1==0?0:(ansform1).percent_of(allform1)  
-     @percentform2 = ansform2==0?0:(ansform2).percent_of(allform2)  
-     @percentform3 = ansform3==0?0:(ansform3).percent_of(allform3)  
-     @percentform4 = ansform4==0?0:(ansform4).percent_of(allform4)
-     @text1 = checktext(@percentform1)
-     @text2 = checktext(@percentform2)
-     @text3 = checktext(@percentform3)
-     @text4 = checktext(@percentform4)
+     user = User.find_by(id: session[:user_id])
+     #allform1 = Question.where(formtype:1).count;
+     #allform2 = Question.where(formtype:2).count;
+     #allform3 = Question.where(formtype:3).count;
+     #allform4 = Question.where(formtype:4).count;
+     #allcount = allform1+allform2+allform3+allform4;
+     #ansform1 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:1}).count
+     #ansform2 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:2}).count
+     #ansform3 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:3}).count
+     #ansform4 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:4}).count
+     #ansall = ansform1+ansform2+ansform3+ansform4;
+     @percentall = 0#(ansall).percent_of(allcount)  
+     @percentform1 = 0#ansform1==0?0:(ansform1).percent_of(allform1)  
+     @percentform2 = 0#ansform2==0?0:(ansform2).percent_of(allform2)  
+     @percentform3 = 0#ansform3==0?0:(ansform3).percent_of(allform3)  
+     @percentform4 = 0#ansform4==0?0:(ansform4).percent_of(allform4)
+     @text1 = 0#checktext(@percentform1)
+     @text2 = 0#checktext(@percentform2)
+     @text3 = 0#checktext(@percentform3)
+     @text4 = 0#checktext(@percentform4)
      
   end
   def form1

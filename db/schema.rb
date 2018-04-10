@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180331064052) do
+ActiveRecord::Schema.define(version: 20180410075816) do
 
   create_table "answers", force: :cascade do |t|
     t.string "answer"
@@ -33,13 +33,21 @@ ActiveRecord::Schema.define(version: 20180331064052) do
     t.index ["user_id"], name: "index_loghistories_on_user_id"
   end
 
+  create_table "music_ins", force: :cascade do |t|
+    t.string "title"
+    t.integer "formtype"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "title"
     t.string "choice"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "qtype"
-    t.integer "formtype"
+    t.integer "musicins_id"
+    t.index ["musicins_id"], name: "index_questions_on_musicins_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -52,6 +60,22 @@ ActiveRecord::Schema.define(version: 20180331064052) do
     t.string "name"
     t.string "code"
     t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer "todo_list_id"
+    t.string "name"
+    t.boolean "completed"
+    t.date "due"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["todo_list_id"], name: "index_tasks_on_todo_list_id"
+  end
+
+  create_table "todo_lists", force: :cascade do |t|
+    t.string "Name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
