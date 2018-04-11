@@ -1,0 +1,7 @@
+<tr class="OherMusicForm">
+  <td><a href="javascript:;"  class="removeMusic" onclick="var r=confirm('Are you sure to Delete?'); if(r) {$(this).closest('.OherMusicForm').remove();} return false;">X</a> อื่นๆ
+      <%= text_field_tag "qparam[othertitle-#{index}][]"%></td>
+  <td  class="text-right">จำนวน</td>
+  <td class="text-center"><%= text_field_tag "qparam[otherval-#{index}][]" ,nil, size: 2 %></td>
+  <td class="text-center"><%= text_field_tag "qparam[otherval2-#{index}][]" ,nil, size: 2 %></td>
+</tr>

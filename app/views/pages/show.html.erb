@@ -1,13 +1,83 @@
-<div class="row">
-    <div class="col-sm-3">
-        Overall : <%= @percentall %>%
+<h1 class="big-header text-info">DASHBOARD</h1>
+<div class="card-group row">
+  <div class="card border-0 col-md-12 col-lg-4 ">
+    <div class="card-body">
+        <% if current_user %>
+            <div class="form-group pb-3">
+                <h4 class="text-info"><%= current_user.school.code %>  <%= current_user.school.name %></h4>
+            </div>
+            <div class="form-group">
+                <b>
+                    <p><u>ข้อมูลผู้ใช้งาน</u></p>
+                    <p><%= current_user.name %>  <%= current_user.lastname %><br/>(<%= current_user.cardnumber %>)</p>
+                    <p>เข้าสู่ระบบเมื่อ <%=@userlogintime%></p>
+                </b>
+            </div>   
+            <div class="form-group">
+                <div class="col text-right">
+                    <%= link_to "ออกจากระบบ", logout_path, method: "delete" ,class: "btn btn-danger"%>
+                </div>
+            </div>
+      <% end %>  
     </div>
-    <div class="col-sm-9">
+  </div>
+   <div class="card border-0 col-md-12 col-lg-8">
+    <div class="card-body">
         <div class="row">
-            <div class="col-sm-6">Form2 : <%= @percentform1 %>% <%= link_to @text1, form1_path, method: "get" ,class: ""%></div>
-            <div class="col-sm-6">Form2 : <%= @percentform2 %>% <%= @text2 %></div>
-            <div class="col-sm-6">Form3 : <%= @percentform3 %>% <%= @text3 %></div>
-            <div class="col-sm-6">Form4 : <%= @percentform4 %>% <%= @text4 %></div>
+            <div class="col-md-3 text-center">
+                <div class="bar-active-border">
+                       <div class="bar bg-white">
+                          <span class="bar-prec-box"><span class="bar-prec"><%= format('%.2f',@percentall)%></span><span>%</span></span>
+                      </div>
+                </div>
+                <h2>ภาพรวม</h2>
+            </div>
+            <div class="col-md-9 text-center">
+                <div class="row">
+                    <div class="form-group col-12"><h4>โปรดคลิกเลือกที่แผนภูมิ เพื่อดำเนินการกรอก/แก้ไขข้อมูล</h4></div>
+                    <div class="form-group col-md-12 col-lg-6">
+                         <%= link_to  musicteacher_path, method: "get",class: "a-removeunderline" do%> 
+                            <div class="active-border">
+                                <div class="circle">
+                                    <span class="prec-box"><span class="prec"><%= format('%.2f',@percentform1)%></span><span>%</span></span>
+                                </div>
+                            </div>
+                         <%end%>    
+                        <p>ข้อมูลครูดนตรี และนาฏศิลป์</p>
+                    </div>
+                    <div class="form-group col-md-12 col-lg-6">
+                        <%= link_to  thaimusic_path, method: "get",class: "a-removeunderline" do%>    
+                            <div class="active-border">
+                                <div class="circle">
+                                    <span class="prec-box"><span class="prec"><%= @percentform2%></span><span>%</span></span>
+                                </div>
+                            </div>
+                        <%end%> 
+                        <p>ข้อมูลเครื่องดนตรีไทย</p>
+                    </div>
+                    <div class="form-group col-md-12 col-lg-6">
+                        <a class="a-removeunderline" href="javascript:;">
+                            <div class="active-border">
+                                <div class="circle">
+                                    <span class="prec-box"><span class="prec">51</span><span>%</span></span>
+                                </div>
+                            </div>
+                        </a>
+                        <p>ข้อมูลเครื่องดนตรีสากลและดุริยางค์</p>
+                    </div>
+                    <div class="form-group col-md-12 col-lg-6">
+                        <a class="a-removeunderline" href="javascript:;">
+                            <div class="active-border">
+                                <div class="circle">
+                                    <span class="prec-box"><span class="prec">86</span><span>%</span></span>
+                                </div>
+                            </div>
+                        </a>
+                        <p>ข้อมูลเครื่องดนตรีพื้นบ้าน</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+  </div>
+</div>  

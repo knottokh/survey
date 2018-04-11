@@ -1,5 +1,5 @@
-<div class="jumbotron vertical-center ">
-  <% if flash[:login_errors] %>
+<div class="vertical-center ">
+<% if flash[:login_errors] %>
     <% flash[:login_errors].each do |error| %>
       <div class="alert alert-danger" role="alert"><%=error%></div>
     <%end%>

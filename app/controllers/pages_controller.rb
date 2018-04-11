@@ -3,8 +3,14 @@ class PagesController < ApplicationController
   #before_action :role_user!
   def index
        @master_case = 0;
-       @newusertext = "ลงทะเบียนผู้ใช้ใหม่"
-       @tosurveytext = "กรอกข้อมูลต่อ"
+       @newusertext = "ลงทะเบียนผู้ให้ข้อมูลครั้งแรก"
+       @tosurveytext = "เข้าสู่ระบบกรอกข้อมูล"
+       @headsub1 ="สืบเนื่องจาก คณะกรรมการวัฒนธรรมแห่งชาติ (กวช.) เห็นชอบให้กระทรวงวัฒนาธรรมดำเนินการตามนโยบายส่งเสริมให้เด็กไทยทุกคน
+เล่นดนตรีไทยเป็น 1 ชนิด ภายใน 5 ปี ดังนั้นจึงมีความจำเป็นต้องเก็บรวบรวมข้อมูลทรัพยากรด้านดนตรีศึกษาของสถานศึกษา
+ในประเทศไทยเพื่อใช้เป็นข้อมูลหลักสำหรับการกำหนดนโยบายสนับสนุนสถานศึกษาให้เป็นไปอย่างเหมาะสม และมีประสิทธิผล"
+       @headwarning = "กระทรวงวัฒนธรรมจึงใคร่ขอความกรุณาสถานศึกษาให้ข้อมูลที่ครบถ้วน และตรงตามสภาพจริง ข้อมูลของท่านจะมีส่วนสำคัญอย่าง
+ยิ่งในการกำหนดนโยบาย และวางแผน
+เพื่อพัฒนาการจัดการเรียนการสอนดนตรีศึกษาของประเทศไทย"    
        #session[:user_id] = nil
        if session[:user_id] != nil
          redirect_to dashboard_path
@@ -73,21 +79,78 @@ class PagesController < ApplicationController
       end
   end
   def show
-     @master_case = 1;
+     @master_case = 0;
      user = User.find_by(id: session[:user_id])
-     #allform1 = Question.where(formtype:1).count;
-     #allform2 = Question.where(formtype:2).count;
+     
+     loguserlogin = Loghistory.where(:user_id => 10,:behavior => "2").last
+     #loglogin = Loghistory.where()
+     #I18n.locale = :th
+     @userlogintime = ""#I18n.l(Date.current) 
+     if !loguserlogin.nil?
+          @userlogintime = loguserlogin.created_at
+     end     
+     
+     #count teacher
+        qteacher =  Question.find_by({:title => "teachercount"})
+        
+                        #.page(params[:page])
+        teachercount  = 0
+        maxteacher = 0
+        tanswer = Answer.where(:question_id=>qteacher.id).where(:school_id=>user.school_id).first
+        if !tanswer.nil?
+                if !tanswer.answer.nil? && !tanswer.answer.empty?
+                    maxteacher = Integer(tanswer.answer) 
+                    teachercount = teachercount + 1
+                end
+                #session["qid-#{q.id}"] = nil
+        end
+        
+        teacers = Musicteacher.where(:schools_id=>user.school_id)
+        teacers.each do |tea|
+            if !tea.nil?
+                if (!tea.prefix.nil? && !tea.prefix.empty?) || (!tea.name.nil? && !tea.name.empty?) ||
+                    (!tea.surname.nil? && !tea.surname.empty?) || (!tea.status.nil? && !tea.status.empty?) ||
+                    (!tea.position.nil? && !tea.position.empty?) || (!tea.degree.nil? && !tea.degree.empty?) ||
+                    (!tea.branch.nil? && !tea.branch.empty?) || (!tea.university.nil? && !tea.university.empty?) ||
+                    (!tea.topic.nil? && !tea.topic.empty?)
+                    
+                     teachercount = teachercount + 1
+                end
+                #session["qid-#{q.id}"] = nil
+            end
+        end
+        
+        @formpercent = (teachercount/((9.0 * maxteacher) + 1))*100.0
+     
+     #count thai music
+      qcountthaimusic = Question.joins(:musicin).where(:musicins => {formtype: 2})
+                        #.page(params[:page])
+      countthaimusic  = 0
+      qcountthaimusic.each do |q|
+            answer = Answer.where(:question_id=>q.id).where(:school_id=>user.school_id).first
+            if !answer.nil?
+                if !answer.answer.nil? && !answer.answer.empty?
+                    countthaimusic = countthaimusic + 1
+                end
+                if !answer.answer2.nil? && !answer.answer2.empty?
+                    countthaimusic = countthaimusic + 1
+                end
+                #session["qid-#{q.id}"] = nil
+            end
+       end
+     allform1 = (9.0 * maxteacher) + 1;
+     allform2 = qcountthaimusic.count * 2;
      #allform3 = Question.where(formtype:3).count;
      #allform4 = Question.where(formtype:4).count;
-     #allcount = allform1+allform2+allform3+allform4;
+     allcount = allform1+allform2#+allform3+allform4;
      #ansform1 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:1}).count
      #ansform2 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:2}).count
      #ansform3 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:3}).count
      #ansform4 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:4}).count
-     #ansall = ansform1+ansform2+ansform3+ansform4;
-     @percentall = 0#(ansall).percent_of(allcount)  
-     @percentform1 = 0#ansform1==0?0:(ansform1).percent_of(allform1)  
-     @percentform2 = 0#ansform2==0?0:(ansform2).percent_of(allform2)  
+     ansall = teachercount+countthaimusic#+ansform3+ansform4;
+     @percentall = (ansall).percent_of(allcount)  
+     @percentform1 = (teachercount).percent_of(allform1)  
+     @percentform2 = (countthaimusic).percent_of(allform2)  
      @percentform3 = 0#ansform3==0?0:(ansform3).percent_of(allform3)  
      @percentform4 = 0#ansform4==0?0:(ansform4).percent_of(allform4)
      @text1 = 0#checktext(@percentform1)
@@ -103,7 +166,8 @@ class PagesController < ApplicationController
         session["formparam"]= {}
     end
     user = User.find_by(id: session[:user_id])
-    @questions = Question.where(formtype:1).page(params[:page])
+    @questions = Question.joins(:musicin).where(:musicins => {formtype: 1})
+                    #.page(params[:page])
     @questions.each do |q|
         answer = Answer.where(:question_id=>q.id).where(:school_id=>user.school_id).first
         if !answer.nil?

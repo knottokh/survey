@@ -26,6 +26,7 @@ class School < ApplicationRecord
     }
     has_many :users
     has_many :answers#, through: :users, source: :school
+    has_many :musicteachers
     
     def self.filter(params)
         where(params[:search])

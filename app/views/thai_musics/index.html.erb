@@ -1,0 +1,104 @@
+ <div class="container">
+    <div class="active-border">
+           <div class="circle">
+                <span class="prec-box"><span class="prec"><%= format('%.2f',@formpercent)%></span>%</span>
+           </div>
+   </div>
+    <%= form_for :qparam , as: :post, url: thaimusicsave_path,:html => {:class => ''} do |f| %>
+         <div class="row justify-content-md-center">
+             <div class="form-group col-md-7">
+                <div class="card border-primary">
+                    <div class="card-header bg-info text-white"><h3><%= @q1.title%></h3></div>
+                </div>
+                <div class="card-body bg-white">
+                    <table class="table table-xs borderless">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th class="text-center">ทั้งหมด</th>
+                                <th class="text-center">ใช้งานได้จริง</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @question1.each do |q|  %>
+                                <tr>
+                                    <td><%= q.title%></td>
+                                    <td  class="text-right">จำนวน</td>
+                                    <td class="text-center"><%= f.text_field :"qid-#{q.id}",:value => session["formparam"]["qid-#{q.id}"] ,class: "text-center", size: 2%></td>
+                                    <td class="text-center"><%= f.text_field :"qid-#{q.id}-2",:value => session["formparam"]["qid-#{q.id}-2"],class: "text-center" , size: 2%> </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                        <tbody>
+                            <% @answers1.each do |a|  %>
+                                <tr>
+                                    <td>
+                                        <%= link_to 'Destroy', thaimusicdel_path(:id => a.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+                                        <%= f.text_field :"titleans-#{a.id}",:value => session["formparam"]["titleans-#{a.id}"]%></td>
+                                    <td  class="text-right">จำนวน</td>
+                                    <td class="text-center"><%= f.text_field :"ans-#{a.id}",:value => session["formparam"]["ans-#{a.id}"] ,class: "text-center", size: 2%></td>
+                                    <td class="text-center"><%= f.text_field :"ans-#{a.id}-2",:value => session["formparam"]["ans-#{a.id}-2"],class: "text-center" , size: 2%> </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                        <tbody class="musicOtherSet">
+                             <%= render partial: "other" , locals: {index: @q1.id} %>
+                        </tbody>
+                        <tbody class="new_music_form" style="display:none;">
+                             <%= render partial: "other" , locals: {index: @q1.id}%>
+                        </tbody>
+                    </table>
+                    <a href="javascript:;" class="addNewOtherMusic">+ เพิ่มรายการ<%=@q1.title%> อื่นๆ</a>
+                            
+                </div>
+             </div>
+             <div class="form-group col-md-7">
+                <div class="card border-info">
+                    <div class="card-header bg-warning text-white"><h3><%= @q2.title%></h3></div>
+                </div>
+                <div class="card-body bg-white">
+                    <table class="table table-xs borderless">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th class="text-center">ทั้งหมด</th>
+                                <th class="text-center">ใช้งานได้จริง</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @question2.each do |q|  %>
+                                <tr>
+                                    <td><%= q.title%></td>
+                                    <td  class="text-right">จำนวน</td>
+                                    <td class="text-center"><%= f.text_field :"qid-#{q.id}",:value => session["formparam"]["qid-#{q.id}"] ,class: "text-center", size: 2%></td>
+                                    <td class="text-center"><%= f.text_field :"qid-#{q.id}-2",:value => session["formparam"]["qid-#{q.id}-2"],class: "text-center" , size: 2%> </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                        <tbody class="musicOtherSet">
+                             <%= render partial: "other" , locals: {index: @q2.id} %>
+                        </tbody>
+                        <tbody class="new_music_form" style="display:none;">
+                             <%= render partial: "other" , locals: {index: @q2.id}%>
+                        </tbody>
+                    </table>
+                    <a href="javascript:;" class="addNewOtherMusic">+ เพิ่มรายการ<%=@q2.title%> อื่นๆ</a>
+                </div>
+             </div>
+         </div>
+             <div class="save-fixed form-group text-right">
+                <%= f.submit 'Save' ,class: "btn btn-success" %>
+            </div>
+             <% if flash[:question_errors] %>
+            <% flash[:question_errors].each do |error| %>
+              <div class="alert alert-danger" role="alert"><%=error%></div>
+            <%end%>
+        <%end%>
+    <% end %>
+    
+        <div class="form-group">                  
+            <%= link_to "back", dashboard_path, method: "get"%> 
+         </div>
+</div>

@@ -1,0 +1,13 @@
+<tr class="OherMusicForm">
+  <td><a href="javascript:;"  class="removeMusic" onclick="var r=confirm('Are you sure to Delete?'); if(r) {$(this).closest('.OherMusicForm').remove();} return false;">X</a></td> 
+  <td><%= text_field_tag "qparam[prefix][]" ,nil, size: 5 %></td>
+  <td><%= text_field_tag "qparam[name][]"  %></td>
+  <td><%= text_field_tag "qparam[surname][]" %></td> 
+  <td><%= text_field_tag "qparam[status][]" %></td> 
+  <td><%= text_field_tag "qparam[position][]" %></td> 
+  <td><%= text_field_tag "qparam[degree][]" %></td> 
+  <td><%= text_field_tag "qparam[branch][]" %></td> 
+  <td><%= text_field_tag "qparam[university][]" %></td> 
+  <td><%= text_field_tag "qparam[topic][]" %></td> 
+  <td><%= text_area_tag "qparam[remark][]" %></td> 
+</tr>

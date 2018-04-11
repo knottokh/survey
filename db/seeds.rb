@@ -12,10 +12,19 @@
 #School.create(name:'school 4',code:'00004',description:"description school 4")
 #School.create(name:'school 5',code:'00005',description:"description school 5")
 
-#Question.create(title:'question 1',qtype:'dropdown',choice:'A,B');
-#Question.create(title:'question 2',qtype:'text');
-#Question.create(title:'question 4',qtype:'radio',choice:'A,B');
-#Question.create(title:'question 5',qtype:'radio',choice:'A,B');
+#Question.create(title:'question 1',qtype:'dropdown',choice:'A,B',isrequire: true,musicin_id: 1);
+#Question.create(title:'question 2',qtype:'text',isrequire: true,musicin_id: 1);
+#Question.create(title:'question 3',qtype:'text',isrequire: true,musicin_id: 1);
+#Question.create(title:'question 4',qtype:'radio',choice:'A,B',isrequire: true,musicin_id: 1);
+#Question.create(title:'question 5',qtype:'radio',choice:'A,B',isrequire: true,musicin_id: 1);
+#Question.create(title:'question 5',qtype:'radio',choice:'A,B',isrequire: false,musicin_id: 1);
+#Question.create(title:'กระจับปี่',qtype:'text2',isrequire: true,musicin_id: 2);
+#Question.create(title:'จะเข้',qtype:'text2',isrequire: true,musicin_id: 2);
+#Question.create(title:'ซอด้วง',qtype:'text2',isrequire: true,musicin_id: 14);
+#Question.create(title:'ซออู้',qtype:'text2',isrequire: true,musicin_id: 14);
+#Question.create(title:'ซอสามสาย',qtype:'text2',isrequire: true,musicin_id: 14);
+#Question.create(title:'teachercount',qtype:'text',isrequire: true,musicin_id: 1);
+
 #Question.create(title:'question 6',qtype:'radio',choice:'A,B');
 #Question.create(title:'question 7',qtype:'radio',choice:'A,B');
 #Question.create(title:'question 8',qtype:'radio',choice:'A,B');
@@ -41,16 +50,16 @@
 #log = Loghistory.joins(:user).where(users: {'school_id': 1})Post.joins("LEFT OUTER JOIN answers ON answers.question_id = questions.id")
 
 
-#Musicins.create(title:"ครูดนตรี",formtype:1)
-#Musicins.create(title:"เครื่องดีด และ เครื่องสี",formtype:2)
-#Musicins.create(title:"เครื่องตี",formtype:2)
-#Musicins.create(title:"เครื่องเป่า",formtype:2)
-#Musicins.create(title:"เครื่องสาย",formtype:3)
-#Musicins.create(title:"เครื่องตี",formtype:3)
-#Musicins.create(title:"เครื่องประเภทลิ่มนิ้ว",formtype:3)
-#Musicins.create(title:"เครื่องเป่าลมไม้",formtype:3)
-#Musicins.create(title:"เครื่องเป่าทองเหลือง",formtype:3)
-#Musicins.create(title:"ภาคเหนือ",formtype:4)
-#Musicins.create(title:"ภาคอีสาน (เหนือ)",formtype:4)
-#Musicins.create(title:"ภาคอีสาน (ใต้)",formtype:4)
-#Musicins.create(title:"ภาคใต้",formtype:4)
+#Musicin.create(title:"ครูดนตรี",formtype:1)
+#Musicin.create(title:"เครื่องดีด และ เครื่องสี",formtype:2)
+#Musicin.create(title:"เครื่องตี",formtype:2)
+#Musicin.create(title:"เครื่องเป่า",formtype:2)
+#Musicin.create(title:"เครื่องสาย",formtype:3)
+#Musicin.create(title:"เครื่องตี",formtype:3)
+#Musicin.create(title:"เครื่องประเภทลิ่มนิ้ว",formtype:3)
+#Musicin.create(title:"เครื่องเป่าลมไม้",formtype:3)
+#Musicin.create(title:"เครื่องเป่าทองเหลือง",formtype:3)
+#Musicin.create(title:"ภาคเหนือ",formtype:4)
+#Musicin.create(title:"ภาคอีสาน (เหนือ)",formtype:4)
+#Musicin.create(title:"ภาคอีสาน (ใต้)",formtype:4)
+#Musicin.create(title:"ภาคใต้",formtype:4)

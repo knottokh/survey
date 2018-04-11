@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
           redirect_to dashboard_path
       else
           flash[:login_errors] = ["Username or Password incorrect!"]
-          redirect_to sign_in_path
+          redirect_to root_path
       end
   end
   def destroy

@@ -59,3 +59,4 @@ gem 'will_paginate', '~> 3.1.0'
 #gem 'fae-rails'
 gem 'simple_form'
 gem "cocoon"
+gem 'rails-i18n', '~> 5.1'

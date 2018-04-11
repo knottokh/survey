@@ -1,0 +1,72 @@
+ <div class="container">
+    <%= form_for :qparam , as: :post, url: musicteachersave_path,:html => {:class => ''} do |f| %>
+         <div class="row justify-content-md-center">
+             <div class="form-group col-12">
+                    <div class="active-border">
+                        <div class="circle">
+                            <span class="prec-box"><span class="prec"><%= format('%.2f',@formpercent)%></span>%</span>
+                        </div>
+                    </div>
+                  <%= f.text_field :countteachers,:value => session["formparam"]["countteachers"] ,size: 2%>
+                  <a href="javascript:;" class="addteachercount">ตกลง</a>
+             </div>
+             <div class="form-group col-12">
+                 <table class="table table-xs borderless">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>คำนำหน้า</th>
+                                <th>ชื่อ</th>
+                                <th>นามสกุล</th>
+                                <th>สภานภาพ</th>
+                                <th>ตำแหน่งที่บรรจุ</th>
+                                <th>วุฒิการศึกษาสูงสุด</th>
+                                <th>สาขาวิชาที่สำเร็จการศึกษา</th>
+                                <th>สถาบันที่สำเร็จการศึกษา</th>
+                                <th>ภาระงานสอนที่ได้รับมอบหมาย(กลุ่มวิชา)</th>
+                                <th>ภาระงานอื่น ๆ(ถ้ามี)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="dbTeacherSet">
+                            <% @teacers.each do |t| %>
+                                <tr>
+                                    <td> <%= link_to 'Destroy', musicteacherdel_path(:id => t.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                    <td><%= f.text_field :"teaprefix-#{t.id}",:value => session["formparam"]["teaprefix-#{t.id}"], size: 5%></td>
+                                    <td><%= f.text_field :"name-#{t.id}",:value => session["formparam"]["name-#{t.id}"] %></td>
+                                    <td><%= f.text_field :"surname-#{t.id}",:value => session["formparam"]["surname-#{t.id}"] %></td> 
+                                    <td><%= f.text_field :"status-#{t.id}",:value => session["formparam"]["status-#{t.id}"] %></td> 
+                                    <td><%= f.text_field :"position-#{t.id}",:value => session["formparam"]["position-#{t.id}"] %></td> 
+                                    <td><%= f.text_field :"degree-#{t.id}",:value => session["formparam"]["degree-#{t.id}"] %></td> 
+                                    <td><%= f.text_field :"branch-#{t.id}",:value => session["formparam"]["branch-#{t.id}"] %></td> 
+                                    <td><%= f.text_field :"university-#{t.id}",:value => session["formparam"]["university-#{t.id}"] %></td> 
+                                    <td><%= f.text_field :"topic-#{t.id}",:value => session["formparam"]["topic-#{t.id}"]  %></td> 
+                                    <td><%= f.text_area :"remark-#{t.id}",:value => session["formparam"]["remark-#{t.id}"] %></td> 
+                                </tr>    
+                            <% end %>
+                        </tbody>
+                        <tbody class="musicOtherSet">
+                            <% @diff.each do |d| %>
+                                <%= render partial: "newteacher"%>
+                            <% end %>
+                        </tbody>
+                        <tbody class="new_music_form" style="display:none;">
+                             <%= render partial: "newteacher"%>
+                        </tbody>
+                </table>
+                  <%#<a href="javascript:;" class="addNewOtherMusic">+ เพิ่ม </a>%>
+             </div>
+         </div>
+             <div class="form-group text-right">
+                <%= f.submit 'Save' ,class: "btn btn-success" %>
+            </div>
+             <% if flash[:question_errors] %>
+            <% flash[:question_errors].each do |error| %>
+              <div class="alert alert-danger" role="alert"><%=error%></div>
+            <%end%>
+        <%end%>
+    <% end %>
+    
+        <div class="form-group">                  
+            <%= link_to "back", dashboard_path, method: "get"%> 
+         </div>
+</div>

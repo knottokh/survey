@@ -33,6 +33,14 @@ Rails.application.routes.draw do
   get '/form1' => 'pages#form1'
   post '/formsave' =>'teachers#create'
   
+  get '/musicteacher' => 'musicteachers#index'
+  post '/musicteachersave' => 'musicteachers#create'
+  delete '/musicteacherdel' => 'musicteachers#delete'
+  
+  get '/thaimusic' => 'thai_musics#index'
+  post '/thaimusicsave' => 'thai_musics#create'
+  delete '/thaimusicdel' => 'thai_musics#delete'
+  
   get '/admin' => 'admin#index'
   post '/admin' => 'admin#show'
   # The priority is based upon order of creation: first created -> highest priority.

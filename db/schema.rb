@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410075816) do
+ActiveRecord::Schema.define(version: 20180411052434) do
 
   create_table "answers", force: :cascade do |t|
     t.string "answer"
@@ -18,6 +18,10 @@ ActiveRecord::Schema.define(version: 20180410075816) do
     t.datetime "updated_at", null: false
     t.integer "question_id"
     t.integer "school_id"
+    t.string "answer2"
+    t.integer "musicin_id"
+    t.string "othertitle"
+    t.index ["musicin_id"], name: "index_answers_on_musicin_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["school_id"], name: "index_answers_on_school_id"
   end
@@ -29,15 +33,56 @@ ActiveRecord::Schema.define(version: 20180410075816) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "question_id"
+    t.string "answer2"
+    t.integer "musicin_id"
+    t.string "othertitle"
+    t.index ["musicin_id"], name: "index_loghistories_on_musicin_id"
     t.index ["question_id"], name: "index_loghistories_on_question_id"
     t.index ["user_id"], name: "index_loghistories_on_user_id"
   end
 
-  create_table "music_ins", force: :cascade do |t|
+  create_table "logmusicteachers", force: :cascade do |t|
+    t.string "prefix"
+    t.string "name"
+    t.string "surname"
+    t.string "status"
+    t.string "position"
+    t.string "degree"
+    t.string "branch"
+    t.string "university"
+    t.string "topic"
+    t.string "remark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "schools_id"
+    t.integer "users_id"
+    t.string "behavior"
+    t.index ["schools_id"], name: "index_logmusicteachers_on_schools_id"
+    t.index ["users_id"], name: "index_logmusicteachers_on_users_id"
+  end
+
+  create_table "musicins", force: :cascade do |t|
     t.string "title"
     t.integer "formtype"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "musicteachers", force: :cascade do |t|
+    t.string "prefix"
+    t.string "name"
+    t.string "surname"
+    t.string "status"
+    t.string "position"
+    t.string "degree"
+    t.string "branch"
+    t.string "university"
+    t.string "topic"
+    t.string "remark"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "schools_id"
+    t.index ["schools_id"], name: "index_musicteachers_on_schools_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -46,8 +91,9 @@ ActiveRecord::Schema.define(version: 20180410075816) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "qtype"
-    t.integer "musicins_id"
-    t.index ["musicins_id"], name: "index_questions_on_musicins_id"
+    t.boolean "isrequire"
+    t.integer "musicin_id"
+    t.index ["musicin_id"], name: "index_questions_on_musicin_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -87,6 +133,12 @@ ActiveRecord::Schema.define(version: 20180410075816) do
     t.datetime "updated_at", null: false
     t.integer "school_id"
     t.integer "role_id"
+    t.string "name"
+    t.string "lastname"
+    t.string "cardnumber"
+    t.string "position"
+    t.string "phone"
+    t.string "email"
     t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["school_id"], name: "index_users_on_school_id"
   end

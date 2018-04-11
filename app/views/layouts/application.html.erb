@@ -6,12 +6,18 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body class="bg-pink p-4">
+<body class="p-4">
+  <div class="container">
+    <header class="paragraphs form-group">
+        <div class="row form-group">
+            <div class="col" style="max-width:100px"><%= image_tag("logo.png",style: "height:120px") %></div>
+            <div class="col"><h2 class="text-primary"><%= @headtitle%></h2></div>
+        </div>
+    </header>
   <% if params[:notice] %>
   <div class="alert alert-danger" role="alert"><%= params[:notice] %></div>
   <% end %>
   <% if @master_case == 1 %>
-    <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3">
              <% if current_user %>
@@ -38,9 +44,7 @@
               <%= yield %>
         </div>
     </div>
- </div>
  <% elsif  @master_case == 2 %>
-    <div class="container-fluid">
     <div class="row">
         <div class="col-12">
              <% if current_user %>
@@ -51,9 +55,10 @@
               <%= yield %>
         </div>
     </div>
- </div>
  <% else %>
-    <%= yield %>
+        <%= yield %>
+      
   <% end %>  
+   </div> 
 </body>
 </html>
