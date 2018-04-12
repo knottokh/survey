@@ -1,0 +1,2 @@
+class FolkMusicsController < ApplicationController
+end

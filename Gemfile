@@ -4,8 +4,14 @@ gem 'devise'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.1.3'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+group :development do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+end
+group :production do
+  # Use sqlite3 as the database for Active Record
+  gem 'pg'
+end
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -38,6 +44,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #bootstrap
 gem 'popper_js', '~> 1.12.9'
 gem 'bootstrap', '~> 4.0.0'
+#gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootstrap-select-rails', '~> 1.12', '>= 1.12.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,3 +59,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
+
+gem 'kaminari' #1.1.1
+gem 'will_paginate', '~> 3.1.0'
+#gem 'fae-rails'
+gem 'simple_form'
+gem "cocoon"
+gem 'rails-i18n', '~> 5.1'

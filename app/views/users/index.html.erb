@@ -1,0 +1,83 @@
+
+  <h1 class="big-header text-info">ลงทะเบียนผู้ให้ข้อมูล</h1>
+  <% if flash[:login_errors] %>
+      <% flash[:login_errors].each do |error| %>
+        <div class="alert alert-danger" role="alert"><%=error%></div>
+      <%end%>
+  <%end%>
+  <%= form_for :user , as: :post, url: users_path,:html => {:class => 'card-group'} do |f| %>
+      <div class="card border-0 ">
+        <div class="card-body">
+             <%= f.hidden_field :role_id , :value => @roleid %>
+             <div class="form-group">
+                      <%= f.select(:school_id,@school.map { |object| [object.code.concat(' ').concat(object.name), object.id, {'data-description'=>object.description}] }, {:include_blank  => 'ชื่อสถานศึกษา หรือ รหัสสถานศึกษา',
+                            :selected => flash[:user_params]["school_id"]
+                      },
+                          { :class => 'form-control selectpicker',:onchange => "displaySchoolValue(this.value,this)" })%>
+                      <script type="text/javascript">
+                          function displaySchoolValue(val,obj)
+                          {
+                              if(val.length === 0 ) console.log("clear data");
+                              else{
+                                var dobj = $(obj).children('option[value='+val+']');
+                                if(dobj.length > 0){
+                                   console.log(dobj.data());
+                                }
+                              }
+                              //console.log(val)
+                          }
+                        </script>    
+                  </div>
+        </div>
+        <div class="card-footer border-0 bg-white">
+            <h5 class="text-danger"><%= @privatehead%></h5>
+            <p class="text-info"><%= @private1%></p>
+            <p class="text-info">
+                <span><%= @private21%></span>
+                <u class="text-danger"><%= @private221%></u>
+                <u class="text-danger"><%= @private222%></u>
+                <span><%= @private23%></span>
+                <u class="text-danger"><%= @private24%></u>
+                <span><%= @private25%></span>
+            </p>
+            <div class="col">
+                    <%= link_to "กลับไปยังหน้าแรก", root_path, method: "get" ,class: "btn btn-danger btn-lg fox-shadow--8dp"%> 
+            </div>
+        </div>
+      </div>
+      <div class="card border-0 ">
+        <div class="card-body">
+            <div class="form-group">
+                 <%= f.text_field :name ,:value => flash[:user_params]["name"] ,class: "form-control" ,placeholder: "ชื่อ*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.text_field :lastname ,:value => flash[:user_params]["lastname"] ,class: "form-control" ,placeholder: "สกุล*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.text_field :cardnumber,:value => flash[:user_params]["cardnumber"] ,class: "form-control" ,placeholder: "เลขประจำตัวประชาชน*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.text_field :position,:value => flash[:user_params]["position"] ,class: "form-control" ,placeholder: "ตำแหน่ง*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.text_field :phone,:value => flash[:user_params]["phone"] ,class: "form-control" ,placeholder: "เบอร์โทรติดต่อ*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.text_field :email,:value => flash[:user_params]["email"] ,class: "form-control" ,placeholder: "E-mail*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.text_field :username,:value => flash[:user_params]["username"] ,class: "form-control" ,placeholder: "Username*"%>
+            </div>
+            <div class="form-group">
+                <%= f.password_field :password,class: "form-control" ,placeholder: "โปรดระบุรหัสผ่านส่วนตัว*" %>
+            </div>
+            <div class="form-group">
+                <%= f.password_field :password_confirmation,class: "form-control" ,placeholder: "โปรดระบุรหัสผ่านส่วนตัวอีกครั้ง*" %>
+           </div>
+        </div>
+        <div class="card-footer border-0 bg-white">
+             <%= f.submit 'ยืนยัน' ,class: "btn btn-success  btn-lg form-control  box-shadow--8dp " %>
+        </div>
+      </div>
+  <% end %>
+ 

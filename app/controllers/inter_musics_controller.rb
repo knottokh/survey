@@ -1,0 +1,2 @@
+class InterMusicsController < ApplicationController
+end
