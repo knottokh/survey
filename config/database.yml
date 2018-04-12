@@ -27,7 +27,7 @@
 production:
   adapter: postgresql
   encoding: unicode
-  database: merm_production
+  database: mermdb
   pool: 5
   username: merm
   password: P@ssw0rd 
