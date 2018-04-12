@@ -29,6 +29,6 @@ production:
   encoding: unicode
   database: mermdb
   pool: 5
-  username: merm
+  username: postgres
   password: P@ssw0rd 
 
