@@ -23,3 +23,14 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
+
+production:
+  adapter: postgresql
+  endcoding: unicode
+  pool: 5
+  timeout: 5000
+  host: localhost
+  database: merm_production
+  username: merm
+  password: P@ssw0rd
+ 
