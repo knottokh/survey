@@ -29,6 +29,7 @@ class SessionsController < ApplicationController
       session[:user_id] = nil
       session[:master_case] = nil
       session["formparam"] = nil
+      session.delete :locale
       redirect_to root_path, notice: 'Logged out!'
   end
 

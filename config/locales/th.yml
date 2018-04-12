@@ -1,9 +1,15 @@
----
+#---
 th:
   activerecord:
+    attributes:
+      user:
+        email: "E-mail address"
     errors:
-      messages:
-        record_invalid: 'ไม่ผ่านการตรวจสอบ: %{errors}'
+      models:
+        user:
+          attributes:
+            email:
+              blank: "eee is required"  
   date:
     abbr_day_names:
     - อา

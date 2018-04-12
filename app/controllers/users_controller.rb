@@ -34,15 +34,17 @@ class UsersController < ApplicationController
             
           else
    
-         end
+          end
           redirect_to dashboard_path
       else
+
           flash[:user_params]= user_params
           flash[:user_params].each do |k,v|
               checkinside = user.errors[k]
               if !checkinside.empty?
                   flash[:user_params][k] = nil
               end
+              
           end
           flash[:login_errors_obj] = user.errors
           flash[:login_errors] = user.errors.full_messages

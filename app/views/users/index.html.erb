@@ -5,6 +5,7 @@
         <div class="alert alert-danger" role="alert"><%=error%></div>
       <%end%>
   <%end%>
+  <%= I18n.locale %>
   <%= form_for :user , as: :post, url: users_path,:html => {:class => 'card-group'} do |f| %>
       <div class="card border-0 ">
         <div class="card-body">
@@ -76,8 +77,7 @@
            </div>
         </div>
         <div class="card-footer border-0 bg-white">
-             <%= f.submit 'ยืนยัน' ,class: "btn btn-success  btn-lg form-control  box-shadow--8dp " %>
+             <%= f.submit 'ยืนยัน' ,class: "btn btn-success  btn-lg form-control  box-shadow--8dp"  %>
         </div>
       </div>
   <% end %>
- 

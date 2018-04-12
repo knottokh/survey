@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
   
+  devise_for :allusers
+  
   resources :todo_lists
   #get 'admin/index'
 
@@ -20,8 +22,12 @@ Rails.application.routes.draw do
   #get 'pages/index'
 
   #get '/' => 'users#index'
-  get '/sign_up' => 'users#index'
-  get '/sign_in' => 'sessions#new'
+  #get '/sign_up' => 'users#index'
+  #get '/sign_in' => 'sessions#new'
+  #get '/allusers/sign_up'
+  #get '/sign_up' => 'devise/registrations#new'
+  #get '/sign_in' => 'devise/sessions#new'
+  
   post '/sessions' => 'sessions#create'
   delete  '/logout' => 'sessions#destroy'
   post '/users' => 'users#create'
@@ -47,7 +53,12 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'pages#index'
+  #root 'devise/sessions#new'
+  devise_scope :alluser do
+    root to: "devise/sessions#new"
+    get "/sign_up" => "devise/registrations#new"
+    get '/sign_in' => "devise/sessions#new"
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

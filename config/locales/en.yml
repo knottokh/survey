@@ -30,4 +30,4 @@ en:
         user:
           attributes:
             email:
-              blank: "is required"
+              blank: "is required na ja"

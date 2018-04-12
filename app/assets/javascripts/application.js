@@ -17,7 +17,9 @@
 //= require bootstrap-sprockets
 // require bootstrap
 //= require bootstrap-select
-//= require cocoon
+// require cocoon
+//= require rails.validations
+//= require rails.validations.simple_form
 //= require_tree .
 
 $(function(){

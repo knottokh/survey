@@ -57,6 +57,10 @@ end
 gem 'kaminari' #1.1.1
 gem 'will_paginate', '~> 3.1.0'
 #gem 'fae-rails'
-gem 'simple_form'
-gem "cocoon"
+#gem "cocoon"
 gem 'rails-i18n', '~> 5.1'
+gem 'simple_form'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
+
+gem 'activerecord-session_store'
