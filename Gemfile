@@ -5,8 +5,8 @@ gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.1.3'
 group :production do
-  # Use sqlite3 as the database for Active Record
-  gem 'pg'
+  gem 'pg', '0.15.1'
+  gem 'rails_12factor'
 end
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
