@@ -23,20 +23,12 @@
 #production:
 #  <<: *default
 #  database: db/production.sqlite3
-
-development:
+ 
+production:
   adapter: postgresql
   encoding: unicode
-  database: merm_development
+  database: merm_production
   pool: 5
   username: merm
-  password: P@ssw0rd
-
-test:
-  adapter: postgresql
-  encoding: unicode
-  database: merm_test
-  pool: 5
-  username: merm
-  password: P@ssw0rd
+  password: P@ssw0rd 
 
