@@ -4,7 +4,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email , label: false,placeholder: "Email", required: true, autofocus: true , validate: true %>
+    <%= f.input :email , label: false,placeholder: "Email", required: true, autofocus: true %>
     <%= f.input :password, required: true , validate: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
     <%= f.input :password_confirmation, required: true , validate: true %>
   </div>

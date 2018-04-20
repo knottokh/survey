@@ -5,13 +5,18 @@
         <div class="alert alert-danger" role="alert"><%=error%></div>
       <%end%>
   <%end%>
-  <%= I18n.locale %>
+  <% if flash[:logerr] %>
+      <% flash[:logerr].each do |error,msg| %>
+        <div class="notice notice-danger" role="alert"><%=error%> - <%=msg%></div>
+    <%end%>
+  <%end%>    
   <%= form_for :user , as: :post, url: users_path,:html => {:class => 'card-group'} do |f| %>
       <div class="card border-0 ">
         <div class="card-body">
              <%= f.hidden_field :role_id , :value => @roleid %>
+            
              <div class="form-group">
-                      <%= f.select(:school_id,@school.map { |object| [object.code.concat(' ').concat(object.name), object.id, {'data-description'=>object.description}] }, {:include_blank  => 'ชื่อสถานศึกษา หรือ รหัสสถานศึกษา',
+                      <%= f.select(:school_id,@school.map { |object| [object.ministry_code.concat(' ').concat(object.school_name), object.id, {}] }, {:include_blank  => 'ชื่อสถานศึกษา หรือ รหัสสถานศึกษา',
                             :selected => flash[:user_params]["school_id"]
                       },
                           { :class => 'form-control selectpicker',:onchange => "displaySchoolValue(this.value,this)" })%>
@@ -28,19 +33,29 @@
                               //console.log(val)
                           }
                         </script>    
-                  </div>
+            </div>
+            <div class="form-group">
+
+                <%= f.select(:school_test ,[],{}, {:class => 'form-control school_search'})%>
+                 <input type ="hidden" id="ajax-example"></input>
+                <select id="ajax-example-2"></select>
+                <select id="mySelect2"></select>
+             
+            </div>
+            <div class="form-group">
+               <h5 class="text-danger"><%= @privatehead%></h5>
+                <p class="text-info"><%= @private1%></p>
+                <p class="text-info">
+                    <span><%= @private21%></span>
+                    <u class="text-danger"><%= @private221%></u>
+                    <u class="text-danger"><%= @private222%></u>
+                    <span><%= @private23%></span>
+                    <u class="text-danger"><%= @private24%></u>
+                    <span><%= @private25%></span>
+                </p>
+            </div>
         </div>
         <div class="card-footer border-0 bg-white">
-            <h5 class="text-danger"><%= @privatehead%></h5>
-            <p class="text-info"><%= @private1%></p>
-            <p class="text-info">
-                <span><%= @private21%></span>
-                <u class="text-danger"><%= @private221%></u>
-                <u class="text-danger"><%= @private222%></u>
-                <span><%= @private23%></span>
-                <u class="text-danger"><%= @private24%></u>
-                <span><%= @private25%></span>
-            </p>
             <div class="col">
                     <%= link_to "กลับไปยังหน้าแรก", root_path, method: "get" ,class: "btn btn-danger btn-lg fox-shadow--8dp"%> 
             </div>
@@ -48,6 +63,9 @@
       </div>
       <div class="card border-0 ">
         <div class="card-body">
+            <div class="form-group">
+                 <%= f.text_field :prefix ,:value => flash[:user_params]["prefix"] ,class: "form-control" ,placeholder: "คำนำหน้าชื่อ*"%>
+            </div>
             <div class="form-group">
                  <%= f.text_field :name ,:value => flash[:user_params]["name"] ,class: "form-control" ,placeholder: "ชื่อ*"%>
             </div>
@@ -66,15 +84,18 @@
             <div class="form-group">
                  <%= f.text_field :email,:value => flash[:user_params]["email"] ,class: "form-control" ,placeholder: "E-mail*"%>
             </div>
-            <div class="form-group">
-                 <%= f.text_field :username,:value => flash[:user_params]["username"] ,class: "form-control" ,placeholder: "Username*"%>
-            </div>
-            <div class="form-group">
-                <%= f.password_field :password,class: "form-control" ,placeholder: "โปรดระบุรหัสผ่านส่วนตัว*" %>
-            </div>
-            <div class="form-group">
-                <%= f.password_field :password_confirmation,class: "form-control" ,placeholder: "โปรดระบุรหัสผ่านส่วนตัวอีกครั้ง*" %>
-           </div>
+            <div class="notice notice-info">
+                <p class="h4">กำหนดชื่อผู้ใช้งานและรหัสผ่าน</p>
+                <div class="form-group">
+                     <%= f.text_field :username,:value => flash[:user_params]["username"] ,class: "form-control" ,placeholder: "Username*"%>
+                </div>
+                <div class="form-group">
+                    <%= f.password_field :password,class: "form-control" ,placeholder: "โปรดระบุรหัสผ่านส่วนตัว*" %>
+                </div>
+                <div class="form-group">
+                    <%= f.password_field :password_confirmation,class: "form-control" ,placeholder: "โปรดระบุรหัสผ่านส่วนตัวอีกครั้ง*" %>
+               </div>
+             </div>  
         </div>
         <div class="card-footer border-0 bg-white">
              <%= f.submit 'ยืนยัน' ,class: "btn btn-success  btn-lg form-control  box-shadow--8dp"  %>

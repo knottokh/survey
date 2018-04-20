@@ -1,0 +1,2 @@
+class Teachertopic < ApplicationRecord
+end

@@ -10,5 +10,7 @@
 #)
 $(document).on "turbolinks:load", ->
        $("#user_school_id").selectpicker({
-             liveSearch:true
+             liveSearch:true,
+             maxOptions:20
         })
+

@@ -5,5 +5,5 @@ $(document).ready ->
   $(".addNewOtherMusic").on "click", ->
     $(this).parent().find(".musicOtherSet").append  $(this).parent().find(".new_music_form").html()
 
-  $(".removeMusic").on "click", ->
-    $(this).closest('.OherMusicForm').remove()
+  #$(".removeMusic").on "click", ->
+  #  $(this).closest('.OherMusicForm').remove()

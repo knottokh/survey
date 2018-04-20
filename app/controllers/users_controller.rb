@@ -1,5 +1,31 @@
 class UsersController < ApplicationController
+  def allschools
+       q1 = Question.joins(:musicin).where(:musicins => {formtype:1}).last.id
+        q2max = Question.joins(:musicin).where(:musicins => {formtype:2}).count * 2.00
+        q3max = Question.joins(:musicin).where(:musicins => {formtype:3}).count * 2.00
+        q4max = Question.joins(:musicin).where(:musicins => {formtype:4}).count * 2.00 
+      if !params[:term].nil? && !params[:term].empty?
+          #term = "%#{params[:term]}%"
+          #@schools = School.where("school_name like ? or ministry_code like ?", term,term)
+      else
+          #@schools = School.schoolpercent.limit(10)
+      end
+       @schools = School.schoolpercent.limit(10)
 
+       @schools =  @schools.paginate(:page => params[:page], :per_page => params[:page_limit])
+
+        respond_to do |format|  
+            format.html
+            format.json { 
+              render :json => {
+                :schools =>  @schools,
+                :total =>  @schools.count,
+                :links => { :self =>  1 , :next => 2},
+                :term => params[:term]
+            } 
+          }
+        end
+   end
   def index
       # @school = [['school1', 'school1'],['school2', 'school2'],['school3', 'school3'],['school4', 'school4'],['school5', 'school5']]
        if flash[:user_params].nil? 
@@ -16,7 +42,7 @@ class UsersController < ApplicationController
        @private23 = "และ"
        @private24 = "ป้องกัน"
        @private25 = "การเข้าถึงข้อมูลส่วนตัวต่าง ๆ ที่สามารถระบุตัวตนของท่านออกสู่สาธารณะ"
-       @school = School.all;
+       @school = School.limit(100)
        role = Role.where(name:"user").first
        @roleid =(role.nil?)?0:role.id
 
@@ -24,10 +50,10 @@ class UsersController < ApplicationController
   
   def create
 
-      user = User.new(user_params)
+     # user = User.new(user_params)
       
       
-      if user.save
+      if false #user.save
           session[:user_id] = user.id
           loghis = Loghistory.new({behavior:1,user_id:user.id});
           if loghis.save
@@ -38,17 +64,11 @@ class UsersController < ApplicationController
           redirect_to dashboard_path
       else
 
-          flash[:user_params]= user_params
-          flash[:user_params].each do |k,v|
-              checkinside = user.errors[k]
-              if !checkinside.empty?
-                  flash[:user_params][k] = nil
-              end
-              
-          end
-          flash[:login_errors_obj] = user.errors
-          flash[:login_errors] = user.errors.full_messages
-          #flash[:login_errors] = user_params
+          flash[:logerr]= params[:user]
+
+          #flash[:login_errors_obj] = user.errors
+          #flash[:login_errors] = user.errors.full_messages
+          #flash[:login_errors] = params[:user_params]
           redirect_to sign_up_path
           #render 'index'
       end
@@ -57,7 +77,7 @@ class UsersController < ApplicationController
   private
     def user_params
        params.require(:user).permit(:username,:password,:password_confirmation,
-                        :school_id,:role_id,:name,:lastname,:cardnumber,:position,
+                        :school_id,:role_id,:prefix,:name,:lastname,:cardnumber,:position,
                         :phone,:email) 
     end
 end

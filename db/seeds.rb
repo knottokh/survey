@@ -23,7 +23,7 @@
 #Question.create(title:'ซอด้วง',qtype:'text2',isrequire: true,musicin_id: 14);
 #Question.create(title:'ซออู้',qtype:'text2',isrequire: true,musicin_id: 14);
 #Question.create(title:'ซอสามสาย',qtype:'text2',isrequire: true,musicin_id: 14);
-#Question.create(title:'teachercount',qtype:'text',isrequire: true,musicin_id: 1);
+#Question.create(title:'teachercount',qtype:'text',musicin_id: 1);
 
 #Question.create(title:'question 6',qtype:'radio',choice:'A,B');
 #Question.create(title:'question 7',qtype:'radio',choice:'A,B');
@@ -48,8 +48,37 @@
 #Loghistory.create(behavior:'1',answer:'IIII',user_id: 3,question_id:3);
 
 #log = Loghistory.joins(:user).where(users: {'school_id': 1})Post.joins("LEFT OUTER JOIN answers ON answers.question_id = questions.id")
-
-
+Teacherstatus.create({title:"ข้าราชการบำนาญ"})
+Teacherstatus.create({title:"พนักงานราชการ"})
+Teacherstatus.create({title:"ครูอัตราจ้าง"})
+Teacherstatus.create({title:"ครูโครงการพิเศษ"})
+Teacherstatus.create({title:"ปราชญ์ชาวบ้าน"})
+Teacherposition.create({title:"ดนตรีศึกษา"})
+Teacherposition.create({title:"ดนตรีไทย"})
+Teacherposition.create({title:"ดนตรีสากล"})
+Teacherposition.create({title:"ดุริยางคศิลป์"})
+Teacherposition.create({title:"ดุริยางค์ไทย"})
+Teacherposition.create({title:"ดนตรี/นาฏศิลป์"})
+Teacheruniversity.create({title:"จุฬาลงกรณ์มหาวิทยาลัย"})
+Teacheruniversity.create({title:"มหาวทิยาลัยมหิดล"})
+Teacheruniversity.create({title:"มหาวิทยาลัยศิลปากร"})
+Teacheruniversity.create({title:"มหาวิทยาลัยเกษตรศาสตร์"})
+Teacheruniversity.create({title:"มหาวิทยาลัยศรีนครินวิโรฒ ประสานมิตร"})
+Teacheruniversity.create({title:"มหาวิทยาลัยรามคำแหง"})
+Teacheruniversity.create({title:"มหาวิทยาลัยขอนแก่น"})
+Teacheruniversity.create({title:"มหาวิทยาลัยรังสิต"})
+Teacheruniversity.create({title:"มหาวิทยาลัยอัสสัมชัญ"})
+Teacheruniversity.create({title:"มหาวิทยาลัยบูรพา"})
+Teacheruniversity.create({title:"มหาวิทยาลัยเทคโนโลยีราชมงคล"})
+Teacheruniversity.create({title:"มหาวิทยาลัยพายัพ"})
+Teacheruniversity.create({title:"มหาวิทยาลัยมหาสารคาม"})
+Teacheruniversity.create({title:"มหาวิทยาลัยราชภัฏเชียงราย"})
+Teacheruniversity.create({title:"มหาวิทยาลัยราชภัฏจันทรเกษม"})
+Teacheruniversity.create({title:"มหาวิทยาลัยราชภัฏสมเด็จเจ้าพระยา"})
+Teachertopic.create({title:"ดนตรีไทย"})
+Teachertopic.create({title:"ดนตรีสากล"})
+Teachertopic.create({title:"ดุริยางค์"})
+Teachertopic.create({title:"ดนตรีพื้นบ้าน"})
 #Musicin.create(title:"ครูดนตรี",formtype:1)
 #Musicin.create(title:"เครื่องดีด และ เครื่องสี",formtype:2)
 #Musicin.create(title:"เครื่องตี",formtype:2)

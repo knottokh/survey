@@ -11,14 +11,18 @@
     <header class="paragraphs form-group">
         <div class="row form-group">
             <div class="col" style="max-width:100px"><%= image_tag("logo.png",style: "height:120px") %></div>
-            <div class="col"><h2 class="text-primary"><%= @headtitle%></h2></div>
+            <div class="col"><h2 class="text-primary"><%= t('val.headertext') %></h2></div>
         </div>
     </header>
   <% if params[:notice] %>
   <div class="alert alert-danger" role="alert"><%= params[:notice] %></div>
   <% end %>
-   <p class="notice"><%= notice %></p>
+  <% if notice %>
+   <p class="notice-alert notice"><%= notice %></p>
+  <% end %>
+  <% if alert %>
    <p class="alert"><%= alert %></p>
+  <% end %>
   <% if @master_case == 1 %>
     <div class="row">
         <div class="col-sm-3">
@@ -28,7 +32,7 @@
                         ข้อมูลโรงเรียน
                   </div> 
                   <div class="card-body">
-                       <%= current_user.school.name %> 
+                       <%= current_user.school.school_name %> 
                   </div>
                 </div>
                 <div class="card">
@@ -62,5 +66,6 @@
       
   <% end %>  
    </div> 
+   <a href="#" class="scrollToTop"><i class="fa fa-angle-up"></i> Back to top</a>
 </body>
 </html>

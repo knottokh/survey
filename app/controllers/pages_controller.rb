@@ -87,7 +87,7 @@ class PagesController < ApplicationController
      #I18n.locale = :th
      @userlogintime = ""#I18n.l(Date.current) 
      if !loguserlogin.nil?
-          @userlogintime = loguserlogin.created_at
+          @userlogintime = I18n.l(loguserlogin.created_at.in_time_zone("Bangkok"), format: :long)#loguserlogin.created_at.strftime("%d-%m-%Y")
      end     
      
      #count teacher
@@ -96,63 +96,74 @@ class PagesController < ApplicationController
                         #.page(params[:page])
         teachercount  = 0
         maxteacher = 0
-        tanswer = Answer.where(:question_id=>qteacher.id).where(:school_id=>user.school_id).first
-        if !tanswer.nil?
-                if !tanswer.answer.nil? && !tanswer.answer.empty?
-                    maxteacher = Integer(tanswer.answer) 
-                    teachercount = teachercount + 1
-                end
-                #session["qid-#{q.id}"] = nil
+            if !qteacher.nil?
+            tanswer = Answer.where(:question_id=>qteacher.id).where(:school_id=>user.school_id).first
+            if !tanswer.nil?
+                    if !tanswer.answer.nil? && !tanswer.answer.empty?
+                        maxteacher = Integer(tanswer.answer) 
+                        teachercount = teachercount + 1
+                    end
+                    #session["qid-#{q.id}"] = nil
+            end
         end
-        
+
         teacers = Musicteacher.where(:schools_id=>user.school_id)
         teacers.each do |tea|
-            if !tea.nil?
-                if (!tea.prefix.nil? && !tea.prefix.empty?) || (!tea.name.nil? && !tea.name.empty?) ||
-                    (!tea.surname.nil? && !tea.surname.empty?) || (!tea.status.nil? && !tea.status.empty?) ||
-                    (!tea.position.nil? && !tea.position.empty?) || (!tea.degree.nil? && !tea.degree.empty?) ||
-                    (!tea.branch.nil? && !tea.branch.empty?) || (!tea.university.nil? && !tea.university.empty?) ||
-                    (!tea.topic.nil? && !tea.topic.empty?)
+            #if !tea.nil?
+                if (!tea.prefix.nil? && !tea.prefix.empty?)
+                    teachercount = teachercount + 1
+                end
+                if (!tea.name.nil? && !tea.name.empty?) 
+                    teachercount = teachercount + 1
+                end
+                if (!tea.surname.nil? && !tea.surname.empty?)
+                    teachercount = teachercount + 1
+                end
+                if (!tea.status.nil? && !tea.status.empty?)
+                    teachercount = teachercount + 1
+                end
+                if (!tea.position.nil? && !tea.position.empty?)
+                    teachercount = teachercount + 1
+                end
+                if (!tea.degree.nil? && !tea.degree.empty?)
+                    teachercount = teachercount + 1
+                end
+                if (!tea.branch.nil? && !tea.branch.empty?)
+                    teachercount = teachercount + 1
+                end
+                if (!tea.university.nil? && !tea.university.empty?)
+                    teachercount = teachercount + 1
+                end
+                if (!tea.topic.nil? && !tea.topic.empty?)
                     
                      teachercount = teachercount + 1
                 end
                 #session["qid-#{q.id}"] = nil
-            end
+            #end
         end
-        
-        @formpercent = (teachercount/((9.0 * maxteacher) + 1))*100.0
+     maxform1 = (9.0 * maxteacher) + 1
+     #@formpercent = (teachercount/maxform1)*100.0
      
      #count thai music
-      qcountthaimusic = Question.joins(:musicin).where(:musicins => {formtype: 2})
-                        #.page(params[:page])
-      countthaimusic  = 0
-      qcountthaimusic.each do |q|
-            answer = Answer.where(:question_id=>q.id).where(:school_id=>user.school_id).first
-            if !answer.nil?
-                if !answer.answer.nil? && !answer.answer.empty?
-                    countthaimusic = countthaimusic + 1
-                end
-                if !answer.answer2.nil? && !answer.answer2.empty?
-                    countthaimusic = countthaimusic + 1
-                end
-                #session["qid-#{q.id}"] = nil
-            end
-       end
-     allform1 = (9.0 * maxteacher) + 1;
-     allform2 = qcountthaimusic.count * 2;
-     #allform3 = Question.where(formtype:3).count;
-     #allform4 = Question.where(formtype:4).count;
-     allcount = allform1+allform2#+allform3+allform4;
-     #ansform1 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:1}).count
-     #ansform2 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:2}).count
-     #ansform3 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:3}).count
-     #ansform4 = Answer.where(school_id:user.school_id).joins(:question).where(questions: {formtype:4}).count
-     ansall = teachercount+countthaimusic#+ansform3+ansform4;
+     formdata2 = getMusicFormInfo(2,{})
+     formdata3 = getMusicFormInfo(3,{})
+     formdata4 = getMusicFormInfo(4,{})
+     
+     qmaxform2 = formdata2["allQ"]
+     qmaxform3 = formdata3["allQ"]
+     qmaxform4 = formdata4["allQ"]
+     
+     amaxform2 = formdata2["allA"]
+     amaxform3 = formdata3["allA"]
+     amaxform4 = formdata4["allA"]
+     
+     allcount =  maxform1+qmaxform2+qmaxform3+qmaxform4
+     ansall = teachercount+amaxform2+amaxform3+amaxform4
      @percentall = (ansall).percent_of(allcount)  
-     @percentform1 = (teachercount).percent_of(allform1)  
-     @percentform2 = (countthaimusic).percent_of(allform2)  
-     @percentform3 = 0#ansform3==0?0:(ansform3).percent_of(allform3)  
-     @percentform4 = 0#ansform4==0?0:(ansform4).percent_of(allform4)
+     @percentform1 = (teachercount).percent_of(maxform1)  
+     @percentform2 = (amaxform2).percent_of(qmaxform2)  
+     @percentform3 = (amaxform3).percent_of(qmaxform3)   
+     @percentform4 = (amaxform4).percent_of(qmaxform4)  
      @text1 = 0#checktext(@percentform1)
      @text2 = 0#checktext(@percentform2)
      @text3 = 0#checktext(@percentform3)

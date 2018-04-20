@@ -1,22 +1,31 @@
 class MusicteachersController < ApplicationController
     def index
         @master_case = 0; 
-        if session["formparam"].nil? 
-            session["formparam"]= {}
-        end
+        session["formparam"]= {}
+        #if session["formparam"].nil? 
+        #    session["formparam"]= {}
+        #end
+                
+        @teastatus = Teacherstatus.all
+        @teaposition = Teacherposition.all
+        @teaunivers = Teacheruniversity.all
+        @teatopic = Teachertopic.all
+        
         user = User.find_by(id: session[:user_id])
         questioncont =  Question.find_by({:title => "teachercount"})
         
                         #.page(params[:page])
         anscount  = 0
         
-        answer = Answer.where(:question_id=>questioncont.id).where(:school_id=>user.school_id).first
-        if !answer.nil?
-                session["formparam"]["countteachers"] = answer.answer
-                if !answer.answer.nil? && !answer.answer.empty?
-                    anscount = anscount + 1
-                end
-                #session["qid-#{q.id}"] = nil
+        if !questioncont.nil?
+            answer = Answer.where(:question_id=>questioncont.id).where(:school_id=>user.school_id).first
+            if !answer.nil?
+                    session["formparam"]["countteachers"] = answer.answer
+                    if !answer.answer.nil? && !answer.answer.empty?
+                        anscount = anscount + 1
+                    end
+                    #session["qid-#{q.id}"] = nil
+            end
         end
         
         @teacers = Musicteacher.where(:schools_id=>user.school_id)
@@ -27,10 +36,25 @@ class MusicteachersController < ApplicationController
                 session["formparam"]["surname-#{tea.id}"] = tea.surname
                 session["formparam"]["status-#{tea.id}"] = tea.status
                 session["formparam"]["position-#{tea.id}"] = tea.position
+                findotherpos = Teacherposition.where(:title => tea.position)
+                if findotherpos.length == 0 && !tea.position.nil? && !tea.position.empty?
+                    session["formparam"]["position-#{tea.id}"] = t("val.teachers.otherpleaseselect")
+                    session["formparam"]["otherposition-#{tea.id}"]  = tea.position
+                end
                 session["formparam"]["degree-#{tea.id}"] = tea.degree
                 session["formparam"]["branch-#{tea.id}"] = tea.branch
                 session["formparam"]["university-#{tea.id}"] = tea.university
+                finduniversity = Teacheruniversity.where(:title => tea.university)
+                if finduniversity.length == 0 && !tea.university.nil? && !tea.university.empty?
+                    session["formparam"]["university-#{tea.id}"] = t("val.teachers.otherpleaseselect")
+                    session["formparam"]["otheruniversity-#{tea.id}"]  = tea.university
+                end
                 session["formparam"]["topic-#{tea.id}"] = tea.topic
+                findothertopic = Teachertopic.where(:title => tea.topic)
+                if findothertopic.length == 0 && !tea.topic.nil? && !tea.topic.empty?
+                    session["formparam"]["topic-#{tea.id}"] = t("val.teachers.otherpleaseselect")
+                    session["formparam"]["othertopic-#{tea.id}"]  = tea.topic
+                end
                 session["formparam"]["remark-#{tea.id}"] = tea.remark
                 if (!tea.prefix.nil? && !tea.prefix.empty?) || (!tea.name.nil? && !tea.name.empty?) ||
                     (!tea.surname.nil? && !tea.surname.empty?) || (!tea.status.nil? && !tea.status.empty?) ||
@@ -42,7 +66,7 @@ class MusicteachersController < ApplicationController
                 #session["qid-#{q.id}"] = nil
             end
         end
-        maxteacher = Integer(session["formparam"]["countteachers"]) 
+        maxteacher = !(session["formparam"]["countteachers"].nil?)?Integer(session["formparam"]["countteachers"]):2 
         @formpercent = (anscount/((9.0 * maxteacher) + 1))*100.0
         
         #@answers1 = Answer.where(:musicin_id => @q1.id)
@@ -54,12 +78,14 @@ class MusicteachersController < ApplicationController
         #@questions.group_by(&:musicin_id)
         deffobj = maxteacher - @teacers.length
         @diff = Array.new(deffobj)
+
+        
     end
     def create
         user = User.find_by(id: session[:user_id])
         error_count = 0;
         track = Array.new 
-        track.push(params[:qparam])
+        #track.push(params[:qparam])
         #add answer all
         params[:qparam].each do |k, v|
             karr = k.split('-') 
@@ -106,14 +132,19 @@ class MusicteachersController < ApplicationController
                 when "teaprefix" 
                     tid = Integer(karr[1])  
                     tprefix = v
+                    
+                    totherpos = params[:qparam]["otherposition-#{tid}"]
+                    totherunivers = params[:qparam]["otheruniversity-#{tid}"]
+                    tothertopic = params[:qparam]["othertopic-#{tid}"]
+                    
                     tname = params[:qparam]["name-#{tid}"]
                     tsurname = params[:qparam]["surname-#{tid}"]
                     tstatus = params[:qparam]["status-#{tid}"]
-                    tposition = params[:qparam]["position-#{tid}"]
+                    tposition = (!totherpos.nil? && !totherpos.empty? ) ? totherpos : checkequalether(params[:qparam]["position-#{tid}"])
                     tdegree = params[:qparam]["degree-#{tid}"]
                     tbranch = params[:qparam]["branch-#{tid}"]
-                    tuniversity = params[:qparam]["university-#{tid}"]
-                    ttopic = params[:qparam]["topic-#{tid}"]
+                    tuniversity = (!totherunivers.nil? && !totherunivers.empty? ) ? totherunivers : checkequalether(params[:qparam]["university-#{tid}"])
+                    ttopic = (!tothertopic.nil? && !tothertopic.empty? ) ? tothertopic : checkequalether(params[:qparam]["topic-#{tid}"])
                     tremark = params[:qparam]["remark-#{tid}"]
                     
                     teacher = Musicteacher.find_by(id: tid)
@@ -161,6 +192,11 @@ class MusicteachersController < ApplicationController
                         end
                 when "prefix"    
                     tprefix = Array(v)
+                    
+                    totherpos = Array(params[:qparam]["otherposition"])
+                    totherunivers = Array(params[:qparam]["otheruniversity"])
+                    tothertopic = Array(params[:qparam]["othertopic"])
+                    
                     tname = Array(params[:qparam]["name"])
                     tsurname = Array(params[:qparam]["surname"])
                     tstatus = Array(params[:qparam]["status"])
@@ -172,6 +208,11 @@ class MusicteachersController < ApplicationController
                     tremark = Array(params[:qparam]["remark"])
                     tprefix.each_with_index do |vd,index|
                          behavior = 0;    
+                         
+                         finalpos = (!totherpos[index].nil? && !totherpos[index].empty? ) ? totherpos[index] : checkequalether(tposition[index])
+                         finalunivers = (!totherunivers[index].nil? && !totherunivers[index].empty? ) ? totherunivers[index] : checkequalether(tuniversity[index])
+                         finaltopi = (!tothertopic[index].nil? && !tothertopic[index].empty? ) ? tothertopic[index] : checkequalether(ttopic[index])
+                         
                          if (!vd.nil? && !vd.empty?)  && (!tname[index].nil? && !tname[index].empty?)
                              behavior = 4;
                               #new data
@@ -181,11 +222,11 @@ class MusicteachersController < ApplicationController
                                             name:tname[index],
                                             surname:tsurname[index],
                                             status:tstatus[index],
-                                            position:tposition[index],
+                                            position:finalpos,
                                             degree:tdegree[index],
                                             branch:tbranch[index],
-                                            university:tuniversity[index],
-                                            topic:ttopic[index],
+                                            university:finalunivers,
+                                            topic:finaltopi,
                                             remark:tremark[index],
                                             schools_id:user.school_id
                                       });
@@ -204,11 +245,11 @@ class MusicteachersController < ApplicationController
                                             name:tname[index],
                                             surname:tsurname[index],
                                             status:tstatus[index],
-                                            position:tposition[index],
+                                            position:finalpos,
                                             degree:tdegree[index],
                                             branch:tbranch[index],
-                                            university:tuniversity[index],
-                                            topic:ttopic[index],
+                                            university:finalunivers,
+                                            topic:finaltopi,
                                             remark:tremark[index],
                                             users_id:user.id
                             },track)
@@ -233,6 +274,13 @@ class MusicteachersController < ApplicationController
   end
     
     private
+    def checkequalether(d)
+            if d == t("val.teachers.otherpleaseselect")
+                return ""
+            end
+        
+        return d
+    end
     def loghistory(param,track)
         #1 sign up
         #2 log in

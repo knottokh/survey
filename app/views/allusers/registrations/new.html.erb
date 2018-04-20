@@ -1,0 +1,73 @@
+<h1 class="big-header text-info">ลงทะเบียนผู้ให้ข้อมูล</h1>
+  <% if flash[:login_errors] %>
+      <% flash[:login_errors].each do |error| %>
+        <div class="alert alert-danger" role="alert"><%=error%></div>
+      <%end%>
+  <%end%>
+<%= simple_form_for(resource, as: resource_name, url: sign_up_path,html: {class: "card-group"}, validate: true) do |f| %>
+  <%= f.error_notification %>
+  <div class="card border-0 ">
+        <div class="card-body">
+             <%=f.input :role_id, :as => :hidden,:validate => true, :autofocus =>true, :input_html => { :value =>  @roleid }%>
+             <%= f.input :school_id ,:label => false, collection:@school.map { |object| [object.code.concat(' ').concat(object.name), object.id, {'data-description'=>object.description}] },
+               :include_blank => @schoolblank, label_method: :first, value_method: :second %>
+        </div>
+        <div class="card-body">
+           <h5 class="text-danger"><%= @privatehead%></h5>
+            <p class="text-info"><%= @private1%></p>
+            <p class="text-info">
+                <span><%= @private21%></span>
+                <u class="text-danger"><%= @private221%></u>
+                <u class="text-danger"><%= @private222%></u>
+                <span><%= @private23%></span>
+                <u class="text-danger"><%= @private24%></u>
+                <span><%= @private25%></span>
+            </p>
+        </div>
+        <div class="card-footer border-0 bg-white">
+            <div class="col">
+                    <%= link_to "กลับไปยังหน้าแรก", root_path, method: "get" ,class: "btn btn-danger btn-lg fox-shadow--8dp"%> 
+            </div>
+        </div>
+   </div>  
+   <div class="card border-0 ">
+        <div class="card-body">
+            <div class="form-group">
+                 <%= f.input :prefix ,:label => false,:value => flash[:user_params]["prefix"] ,class: "form-control" ,placeholder: "คำนำหน้าชื่อ*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.input :name ,:label => false,:value => flash[:user_params]["name"] ,class: "form-control" ,placeholder: "ชื่อ*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.input :surname ,:label => false,:value => flash[:user_params]["surname"] ,class: "form-control" ,placeholder: "สกุล*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.input :cardnumber,:label => false,:value => flash[:user_params]["cardnumber"] ,class: "form-control" ,placeholder: "เลขประจำตัวประชาชน*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.input :position,:label => false,:value => flash[:user_params]["position"] ,class: "form-control" ,placeholder: "ตำแหน่ง*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.input :phone,:label => false,:value => flash[:user_params]["phone"] ,class: "form-control" ,placeholder: "เบอร์โทรติดต่อ*"%>
+            </div>
+            <div class="form-group">
+                 <%= f.input :email,:label => false,:value => flash[:user_params]["email"] ,class: "form-control" ,placeholder: "E-mail*"%>
+            </div>
+            <div class="notice notice-info">
+                <p class="h-4">กำหนดชื่อผู้ใช้งานและรหัสผ่าน</p>
+                <div class="form-group">
+                     <%= f.input :username,:label => false,:value => flash[:user_params]["username"] ,class: "form-control" ,placeholder: "ชื่อผู้ใช้ (username)*"%>
+                </div>
+                <div class="form-group">
+                    <%= f.input :password,:label => false,class: "form-control" ,placeholder: "โปรดระบุรหัสผ่านส่วนตัว*" %>
+                </div>
+                <div class="form-group">
+                    <%= f.input :password_confirmation,:label => false,class: "form-control" ,placeholder: "โปรดระบุรหัสผ่านส่วนตัวอีกครั้ง*" %>
+               </div>
+           </div>
+         </div>
+        <div class="card-footer border-0 bg-white">
+             <%= f.button :submit, 'ยืนยัน'  ,class: "btn btn-success  btn-lg form-control  box-shadow--8dp"%>
+        </div>
+  </div>  
+<% end %>

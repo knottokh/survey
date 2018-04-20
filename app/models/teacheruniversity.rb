@@ -1,0 +1,2 @@
+class Teacheruniversity < ApplicationRecord
+end

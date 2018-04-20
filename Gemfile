@@ -40,6 +40,12 @@ gem 'popper_js', '~> 1.12.9'
 gem 'bootstrap', '~> 4.0.0'
 #gem 'bootstrap-sass', '~> 3.3.7'
 gem 'bootstrap-select-rails', '~> 1.12', '>= 1.12.4'
+#gem 'select2-rails', '~> 4.0', '>= 4.0.3'
+gem "select2_rails" , '~> 4.0', '<= 4.0.1'
+#gem 'select2_simple_form'
+gem 'select2-sass-bootstrap-rails'
+#font
+gem "font-awesome-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,3 +70,11 @@ gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 
 gem 'activerecord-session_store'
+
+#import excel
+gem 'roo'
+gem 'iconv'
+
+#datatable
+gem 'jquery-datatables-rails'
+gem 'ajax-datatables-rails'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412052519) do
+ActiveRecord::Schema.define(version: 20180417230609) do
 
   create_table "allusers", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -32,8 +32,12 @@ ActiveRecord::Schema.define(version: 20180412052519) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "school_id"
+    t.integer "role_id"
     t.index ["email"], name: "index_allusers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_allusers_on_reset_password_token", unique: true
+    t.index ["role_id"], name: "index_allusers_on_role_id"
+    t.index ["school_id"], name: "index_allusers_on_school_id"
   end
 
   create_table "answers", force: :cascade do |t|
@@ -107,6 +111,7 @@ ActiveRecord::Schema.define(version: 20180412052519) do
     t.integer "formtype"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "orderno"
   end
 
   create_table "musicteachers", force: :cascade do |t|
@@ -132,7 +137,6 @@ ActiveRecord::Schema.define(version: 20180412052519) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "qtype"
-    t.boolean "isrequire"
     t.integer "musicin_id"
     t.index ["musicin_id"], name: "index_questions_on_musicin_id"
   end
@@ -144,9 +148,15 @@ ActiveRecord::Schema.define(version: 20180412052519) do
   end
 
   create_table "schools", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
-    t.string "description"
+    t.string "education_area"
+    t.string "ministry_code"
+    t.string "school_name"
+    t.string "municipal_area"
+    t.string "district"
+    t.string "province"
+    t.string "postcode"
+    t.integer "zone"
+    t.integer "students_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -160,18 +170,26 @@ ActiveRecord::Schema.define(version: 20180412052519) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
-  create_table "tasks", force: :cascade do |t|
-    t.integer "todo_list_id"
-    t.string "name"
-    t.boolean "completed"
-    t.date "due"
+  create_table "teacherpositions", force: :cascade do |t|
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["todo_list_id"], name: "index_tasks_on_todo_list_id"
   end
 
-  create_table "todo_lists", force: :cascade do |t|
-    t.string "Name"
+  create_table "teacherstatuses", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teachertopics", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teacheruniversities", force: :cascade do |t|
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -189,6 +207,7 @@ ActiveRecord::Schema.define(version: 20180412052519) do
     t.string "position"
     t.string "phone"
     t.string "email"
+    t.string "prefix"
     t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["school_id"], name: "index_users_on_school_id"
   end
